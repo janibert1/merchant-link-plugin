@@ -1,0 +1,2 @@
+# MerchantLink v2 uses per-listing barter pairs stored in SQLite.
+# No global currency settings are used.

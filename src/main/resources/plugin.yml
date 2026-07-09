@@ -1,0 +1,14 @@
+name: MerchantLink
+version: 1.0
+main: nl.jdries.merchantlink.MerchantLinkPlugin
+api-version: "26.1.2"
+description: Owner-linked merchant villagers with virtual stock chests
+commands:
+  ml:
+    description: MerchantLink management command
+    usage: /ml <spawn|remove|despawn|link|manage>
+    permission: merchantlink.use
+permissions:
+  merchantlink.use:
+    description: Allows use of MerchantLink
+    default: true
