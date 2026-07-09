@@ -113,6 +113,25 @@ documented here rather than silently skipped:
 This mod is **server-only** (`"environment": "server"` in `fabric.mod.json`) — no client
 code, and it does not need to be installed on player clients.
 
+### ⚠️ Known limitation: this does NOT match the live Horizons SMP server's version
+
+The main Horizons SMP server runs **Paper 26.1.2** — a genuinely newer Minecraft version
+than `1.21.11`. Mojang switched to date-based versioning; the real chronological order is
+`...1.21.10, 1.21.11, 26.1, 26.1.1, 26.1.2, 26.2...` (confirmed via Fabric's own version
+metadata API — `26.1.2` is not a "Paper-only" version string, it's the actual Minecraft
+version). This mod targets `1.21.11` because **Yarn (the mapping project Fabric mods are
+written against) has no published mappings for the `26.x` line yet** as of 2026-07-09 —
+Fabric Loader and Fabric API both fully support `26.1.2`, there's just no way to write
+human-readable mod source against it until Yarn catches up.
+
+**Fabric mods cannot run on a Paper server at all, independent of version** — they're
+different, incompatible server loaders. This mod has never run on, and cannot run on, the
+live production Horizons SMP server; it has only been build-verified, not run against a
+live 26.x Fabric server. See [`horizons-fabric`](https://github.com/janibert1/horizons-fabric)
+(a sister project in this same ecosystem) for the full story of a local test sandbox that
+was deliberately downgraded from `26.1.1` to `1.21.11` to get a Yarn-mapped mod to load —
+the same limitation applies here.
+
 ## Building
 
 ```sh

@@ -8,7 +8,7 @@ implementations of the same feature set for two different server platforms:
 | Directory | Platform | Status |
 |---|---|---|
 | [`/plugin`](plugin) | Paper/Bukkit (Java plugin) | Original implementation |
-| [`/mod`](mod) | Fabric (server-side mod) | Port of the plugin — feature-complete, released |
+| [`/mod`](mod) | Fabric (server-side mod) | Port of the plugin — feature-complete, released, **built against Minecraft 1.21.11, not verified against the live server's actual 26.1.2** (see [`/mod`'s README](mod/README.md#-known-limitation-this-does-not-match-the-live-horizons-smp-servers-version)) |
 
 They are **not interoperable** — each is a full standalone implementation for
 its own platform, with its own build, its own data storage, and its own
