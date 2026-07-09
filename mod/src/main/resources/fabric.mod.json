@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "id": "merchant-link",
+  "version": "1.0.0",
+  "name": "MerchantLink",
+  "description": "Owner-linked merchant villagers with virtual stock chests",
+  "authors": ["jdries"],
+  "environment": "server",
+  "entrypoints": {
+    "server": ["nl.jdries.merchantlink.MerchantLinkMod"]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.0",
+    "fabric-api": "*",
+    "minecraft": ">=1.21.11"
+  }
+}

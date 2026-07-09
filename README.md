@@ -8,7 +8,7 @@ implementations of the same feature set for two different server platforms:
 | Directory | Platform | Status |
 |---|---|---|
 | [`/plugin`](plugin) | Paper/Bukkit (Java plugin) | Original implementation |
-| [`/mod`](mod) | Fabric (server-side mod) | Port of the plugin |
+| [`/mod`](mod) | Fabric (server-side mod) | Port of the plugin — feature-complete, released |
 
 They are **not interoperable** — each is a full standalone implementation for
 its own platform, with its own build, its own data storage, and its own
@@ -35,7 +35,13 @@ Both are released separately under [Releases](../../releases) (tagged
 See each variant's own README for exact commands, permissions/config, and
 platform-specific implementation notes and limitations — the two
 implementations were written independently against each platform's native
-APIs and may differ in small edge-case behaviors.
+APIs and may differ in small edge-case behaviors. Notably, the Fabric mod
+reads linked-chest contents live off the physical block entity instead of
+caching a copy, bundles its own SQLite driver (the Paper plugin doesn't
+shade its driver into its jar), and does not protect linked chests from
+explosions/fire (no clean Fabric API equivalent to Bukkit's explosion/ignite
+events) — see [`/mod`](mod)'s README for the full list of intentional
+deviations.
 
 ## Background
 
