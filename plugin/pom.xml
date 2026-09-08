@@ -30,4 +30,38 @@
             <version>3.49.1.0</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <!-- Shades sqlite-jdbc into the output jar so the plugin works
+                     standalone on a server that doesn't already have that
+                     driver on its classpath: see the README's "Building"
+                     section for the runtime failure this fixes. No package
+                     relocation: the code loads the driver purely via
+                     DriverManager plus the jdbc:sqlite: URL scheme (JDBC
+                     ServiceLoader), so relocating org.sqlite would risk
+                     breaking that discovery for no real benefit here (this
+                     plugin is the only thing on the server depending on
+                     sqlite-jdbc). ServicesResourceTransformer keeps the
+                     driver's own META-INF/services registration intact. -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.6.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

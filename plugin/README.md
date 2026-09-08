@@ -69,19 +69,25 @@ cd plugin
 mvn package
 ```
 
-Produces `target/merchant-link-plugin-1.0.jar`.
+Produces `target/merchant-link-plugin-1.0.jar` (~14MB — `maven-shade-plugin`
+now bundles `sqlite-jdbc`, including its native libraries for every
+platform it supports, directly into the jar).
 
 This repo also contains a Fabric mod reimplementation of the same feature
 set — see [`/mod`](../mod) and the [top-level README](../README.md) for how
 the two relate.
 
-> **Note:** the plugin depends on `org.xerial:sqlite-jdbc` for its storage
-> layer, but the `pom.xml` has no shade/assembly step, so that dependency is
-> **not** bundled into the built jar. Either add a shading step (e.g.
-> `maven-shade-plugin`) before distributing the jar standalone, or ensure a
-> compatible `sqlite-jdbc` driver is otherwise available on the server's
-> classpath, or the plugin will fail to open its database connection at
-> runtime.
+**2026-09-08: fixed the standalone-jar issue** — `pom.xml` now shades
+`org.xerial:sqlite-jdbc` into the built jar (`ServicesResourceTransformer`
+keeps the driver's own `META-INF/services` registration intact; no package
+relocation, since the code loads the driver only via `DriverManager` +
+the `jdbc:sqlite:` URL scheme, not a hardcoded class reference). Verified
+with a real, standalone round-trip test (`java -cp
+target/merchant-link-plugin-1.0.jar`, no other classpath entries): opened a
+real SQLite connection, created a table, inserted and read back a row.
+The jar now works correctly dropped into any Paper server on its own —
+previously it depended on `sqlite-jdbc` already being present on the
+server's classpath from some other plugin, which most servers won't have.
 
 ## Installing
 
